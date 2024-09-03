@@ -3,11 +3,11 @@
   <title>Ken&#39;s Blog</title>
   
   
-  <link href="http://localhost/atom.xml" rel="self"/>
+  <link href="https://blog.kenxu.top/atom.xml" rel="self"/>
   
-  <link href="http://localhost/"/>
+  <link href="https://blog.kenxu.top/"/>
   <updated>2024-09-03T13:28:57.767Z</updated>
-  <id>http://localhost/</id>
+  <id>https://blog.kenxu.top/</id>
   
   <author>
     <name>Ken</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>缘起：为什么我会写博客</title>
-    <link href="http://localhost/post/why-creating-my-own-blog/"/>
-    <id>http://localhost/post/why-creating-my-own-blog/</id>
+    <link href="https://blog.kenxu.top/post/why-creating-my-own-blog/"/>
+    <id>https://blog.kenxu.top/post/why-creating-my-own-blog/</id>
     <published>2024-09-03T04:50:38.000Z</published>
     <updated>2024-09-03T13:28:57.767Z</updated>
     
@@ -30,12 +30,12 @@
     
     
     
-    <category term="杂谈" scheme="http://localhost/categories/%E6%9D%82%E8%B0%88/"/>
+    <category term="杂谈" scheme="https://blog.kenxu.top/categories/%E6%9D%82%E8%B0%88/"/>
     
     
-    <category term="Blog" scheme="http://localhost/tags/Blog/"/>
+    <category term="Blog" scheme="https://blog.kenxu.top/tags/Blog/"/>
     
-    <category term="Thoughts" scheme="http://localhost/tags/Thoughts/"/>
+    <category term="Thoughts" scheme="https://blog.kenxu.top/tags/Thoughts/"/>
     
   </entry>
   
