@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<follow_challenge>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <follow_challenge>
     <feedId>57262945444554752</feedId>
     <userId>55082073592910848</userId>
-</follow_challenge>
-<feed xmlns="http://www.w3.org/2005/Atom">
+  </follow_challenge>
   <title>Ken&#39;s Blog</title>
   
   
