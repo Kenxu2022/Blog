@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kenxu.top/post/how-to-create-your-own-blog-p3-access-from-internet/</loc>
+    
+    <lastmod>2024-09-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.kenxu.top/post/why-creating-my-own-blog/</loc>
     
     <lastmod>2024-09-19</lastmod>
@@ -31,7 +40,7 @@
 
   <url>
     <loc>https://blog.kenxu.top/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -39,28 +48,28 @@
   
   <url>
     <loc>https://blog.kenxu.top/tags/blog/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.kenxu.top/tags/hexo/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.kenxu.top/tags/how-to/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.kenxu.top/tags/thoughts/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -69,14 +78,14 @@
   
   <url>
     <loc>https://blog.kenxu.top/categories/%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.kenxu.top/categories/%E6%9D%82%E8%B0%88/</loc>
-    <lastmod>2024-09-22</lastmod>
+    <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
