@@ -1,13 +1,11 @@
-https://blog.kenxu.top/post/wireless-support-for-printers/
 https://blog.kenxu.top/post/how-to-create-your-own-blog-p3-access-from-internet/
 https://blog.kenxu.top/post/why-creating-my-own-blog/
 https://blog.kenxu.top/post/how-to-create-your-own-blog-p2-installation-and-configuration/
 https://blog.kenxu.top/post/how-to-create-your-own-blog-p1-preparation/
 https://blog.kenxu.top/
-https://blog.kenxu.top/tags/how-to/
-https://blog.kenxu.top/tags/homelab/
 https://blog.kenxu.top/tags/blog/
 https://blog.kenxu.top/tags/hexo/
+https://blog.kenxu.top/tags/how-to/
 https://blog.kenxu.top/tags/thoughts/
 https://blog.kenxu.top/categories/%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/
 https://blog.kenxu.top/categories/%E6%9D%82%E8%B0%88/
