@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>为旧打印机添加无线打印和扫描支持</title>
+    <link href="/post/wireless-support-for-printers/"/>
+    <url>/post/wireless-support-for-printers/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>虽然现在市面上的无线打印机种类繁多，但我认为存在以下几个痛点：  </p><ul><li>打印机并非快消品，一般用坏了才会考虑买一台新的，三四年前或更久之前购买的打印机很多不具备无线打印功能，为了无线打印功能专门购买一台新的也不划算。  </li><li>大部分标榜具有无线功能的打印机只能通过厂商专有的软件实现无线有关的功能，有些甚至用的是微信小程序<del>喜欢我打印前先看5秒广告吗</del>。借助这些软件打印时设计的隐私问题让我有所顾虑，同时，每台设备都要下载软件并进行配置，十分麻烦。<br>尤其是第二点，几乎所有的手机和电脑操作系统都自带无线打印协议（<a href="https://en.wikipedia.org/wiki/Internet_Printing_Protocol">IPP</a>）的支持，但很多厂商却任然采用自己研发的私有协议，甚是奇怪。</li></ul><p>为了解决这些痛点，我们可以在投入较少资金（100元以下）的前提下，让旧打印机也能实现无线打印，同时<strong>调用系统自带功能</strong>进行无线打印，无需安装第三方软件。<br>与先前的文章一样，本文主要在Linux系统上操作，需要具备一定的Linux基础。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>折腾记录</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>how-to</tag>
+      
+      <tag>homelab</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>从零开始的博客搭建指北-篇三：公网访问</title>
     <link href="/post/how-to-create-your-own-blog-p3-access-from-internet/"/>
     <url>/post/how-to-create-your-own-blog-p3-access-from-internet/</url>
@@ -20,11 +47,11 @@
     
     <tags>
       
+      <tag>how-to</tag>
+      
       <tag>blog</tag>
       
       <tag>hexo</tag>
-      
-      <tag>how-to</tag>
       
     </tags>
     
@@ -49,11 +76,11 @@
     
     <tags>
       
+      <tag>how-to</tag>
+      
       <tag>blog</tag>
       
       <tag>hexo</tag>
-      
-      <tag>how-to</tag>
       
     </tags>
     
@@ -78,11 +105,11 @@
     
     <tags>
       
+      <tag>how-to</tag>
+      
       <tag>blog</tag>
       
       <tag>hexo</tag>
-      
-      <tag>how-to</tag>
       
     </tags>
     
