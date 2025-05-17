@@ -1,0 +1,799 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  
+    <link rel="canonical" href="https://blog.kenxu.top/post/downgrade-bios/"/>
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ken">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="RedmiBook Pro 2024的新版BIOS固件无法正常启动某些Linux发行版，本文记述了将BIOS固件降级到旧版的过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次降级笔记本BIOS固件的经历">
+<meta property="og:url" content="https://blog.kenxu.top/post/downgrade-bios/index.html">
+<meta property="og:site_name" content="Ken&#39;s Blog">
+<meta property="og:description" content="RedmiBook Pro 2024的新版BIOS固件无法正常启动某些Linux发行版，本文记述了将BIOS固件降级到旧版的过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.kenxu.top/img/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%99%8D%E7%BA%A7%E7%AC%94%E8%AE%B0%E6%9C%ACBIOS%E5%9B%BA%E4%BB%B6%E7%9A%84%E7%BB%8F%E5%8E%86.png">
+<meta property="article:published_time" content="2025-05-17T10:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-17T10:18:34.087Z">
+<meta property="article:author" content="Ken">
+<meta property="article:tag" content="how-to">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.kenxu.top/img/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%99%8D%E7%BA%A7%E7%AC%94%E8%AE%B0%E6%9C%ACBIOS%E5%9B%BA%E4%BB%B6%E7%9A%84%E7%BB%8F%E5%8E%86.png">
+<meta name="twitter:creator" content="@kenxu2022">
+  
+  
+  
+  <title>记一次降级笔记本BIOS固件的经历 - Ken&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.kenxu.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"BnqG01I5hAArZnRatgyoTyJa-gzGzoHsz","app_key":"ViWN7reESSbk8Yh8jQWSrvPm","server_url":"https://bnqg01i5.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Ken's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ken&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/atom.xml" target="_self">
+                <i class="iconfont icon-rss"></i>
+                <span>RSS</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/ba.jpeg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">记一次降级笔记本BIOS固件的经历</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-17 18:00" pubdate>
+          2025年5月17日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">记一次降级笔记本BIOS固件的经历</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>笔者的笔记本电脑是RedmiBook Pro 14 2024，于去年年中购入，之后便装了Windows 11 + Fedora Linux双系统。某一次从Windows重启到Linux后，发现在过了Grub引导后卡住，除了屏幕左上角显示一个下划线之外，没有打印任何报错日志。当时以为是系统被我折腾坏了，排查的时候试过重新制作USB启动盘，结果情况相同；又试了一下其他系统的ISO镜像，结果是有些镜像可以启动，有些则不行。考虑到系统内没什么资料需要保存，于是便格式化了分区，装上了能正常启动的ArchLinux（<br>直到最近，我看到了Fedora 42发布的<a target="_blank" rel="noopener" href="https://x.com/geekbb/status/1912314596662313461">帖子</a>，看着<a target="_blank" rel="noopener" href="https://fedoramagazine.org/whats-new-fedora-workstation-42/">新功能特性</a>以及美观典雅的GNOME桌面，我再次萌生了安装Fedora的想法。本以为都过了两个大版本了，这个Bug应该被修复了。结果在我制作好USB启动盘，准备开始安装系统的时候，发现再次卡在了同样的地方，这下只能看看能不能自己解决这个问题了。</p>
+<h1 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h1><p>很自然地，直接在Google上搜索笔记本型号+Fedora，找到了Fedora论坛上的一个<a target="_blank" rel="noopener" href="https://discussion.fedoraproject.org/t/stuck-after-grub-menu-when-booting-fedora-40-usb-installer/129904">帖子</a>，看起来有人遇到了一模一样的问题，并且已经有了<a target="_blank" rel="noopener" href="https://discussion.fedoraproject.org/t/installation-problem-black-screen-fedora-41-on-laptop-with-an-intel-ultra-5-cpu-and-integrated-graphics-card/136645/13">解决方案</a>。原来是BIOS固件的问题，某天我可能通过小米电脑管家更新了BIOS固件，最新版的固件号是<code>RMAMT4B0P0A0A</code>，而降级<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="原帖中写的是升级，但在经过[确认](https://4pda.to/forum/index.php?showtopic=1085675&st=2760#entry136058114)后，实际上`RMAMT4B0P0A0A`是比`RMAMT4B0P0909`更新的">[1]</span></a></sup>到上一个版本<code>RMAMT4B0P0909</code>就可以正常启动Fedora Linux了。<br><img src="/post/downgrade-bios/1.png" srcset="/img/loading.gif" lazyload><br>看起来问题已经解决了，我们只需要找到<code>0909</code>版本的固件，刷上就行了。原帖作者也在下面留了<code>0909</code>版本固件的链接，但无一例外的都失效了。最后一条回复的网友表示将固件上传到了一个俄罗斯论坛4PDA上，满心欢喜地点开<a target="_blank" rel="noopener" href="https://4pda.to/forum/dl/post/32827362/RMAMT4B0P0909.zip">链接</a>一看：<br><img src="/post/downgrade-bios/2.png" srcset="/img/loading.gif" lazyload alt="Man!"><br>靠北！于是再次试着在Google上用固件名称搜索相关信息，虽然没有找到固件包，但找到了这个V2EX上的<a target="_blank" rel="noopener" href="https://www.v2ex.com/t/1051677?p=2#r_15611387">帖子</a>并顺藤摸瓜找到了一条Github Issue中的<a target="_blank" rel="noopener" href="https://github.com/vrolife/modern_laptop/issues/96#issuecomment-2519013530">Comment</a>，再次验证了只要降级到<code>0909</code>版本的BIOS一切问题就会迎刃而解。  </p>
+<blockquote>
+<p>这条Comment附带了作者从4PDA上下载的16寸SKU的<code>0909</code>版BIOS固件包，这是<a target="_blank" rel="noopener" href="https://github.com/user-attachments/files/18016847/RMAMT6B0P0909.zip">直链</a>，16寸SKU的读者可以用这个固件，14寸SKU请继续往下看。</p>
+</blockquote>
+<p>最终，我发现了一位俄罗斯爱好者创建的Github仓库：<a target="_blank" rel="noopener" href="https://github.com/Data-Name-ID/RedmiBook-Pro-14-2024">Data-Name-ID&#x2F;RedmiBook-Pro-14-2024</a>，并加入了README中提到的<a target="_blank" rel="noopener" href="https://t.me/redmiclub1">Telegram群聊</a>，又在群聊中搜索了一番，最终找到了降级BIOS的具体的操作指南。<a target="_blank" rel="noopener" href="https://t.me/redmiclub1/26886/40635">原文</a>为俄语，经过DeepSeek的翻译和我的试验，以下是具体的操作方法。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><div class="note note-warning">
+            <p>刷写BIOS有风险，请擦亮眼睛确认刷写文件是否正确，刷入错误的文件可能导致设备变砖！</p>
+          </div>
+
+<p>首先，请将笔记本接入电源，BIOS刷写程序无法在电池供电情况下工作。<br>从<a target="_blank" rel="noopener" href="https://www.mi.com/service/notebook/drivers/N57">小米官网</a>下载最新的BIOS固件，解压并运行。待文件释放完毕后，程序会提示BIOS版本相同，无法降级。<br><img src="/post/downgrade-bios/3.png" srcset="/img/loading.gif" lazyload><br>先不要关闭弹窗，打开<code>%WINDIR%\Temp</code>目录，找到以<code>7zS</code>开头的一个文件夹，复制到桌面上，这是安装程序刚刚释放的文件。<br><img src="/post/downgrade-bios/4.png" srcset="/img/loading.gif" lazyload alt="7zS后的字符是随机的"><br>关闭弹窗，程序会自动退出。接下来，打开<a target="_blank" rel="noopener" href="https://www.catalog.update.microsoft.com/Search.aspx?q=xiaomi%20Firmware">这个网页</a>，找到下面版本号为<code>1.9.1.9</code>的固件，有两项，上面一个(<code>1c18... .cab</code>)是14寸SKU的固件，下面一个(<code>8f5a... .cab</code>)是16寸SKU的固件。选择对应你SKU的固件下载。<br>下载完成后，解压这个<code>.cab</code>文件。其中<code>wucapsule.bin</code>就是<code>0909</code>版本的固件。<br><img src="/post/downgrade-bios/5.png" srcset="/img/loading.gif" lazyload><br>对于14寸SKU，请将这个文件重命名为<code>TM2307.fd</code>，对于16寸SKU，请将文件重命名为<code>TM2309.fd</code>，然后将其移动到刚刚复制到桌面上的目录中，选择覆盖源文件。<br>之后打开目录中<code>platform.ini</code>文件，将<code>[Bios_Version_Check]</code>一节下的<code>Flag=1</code>改为<code>Flag=0</code>，禁用BIOS版本检查。<br>最后运行目录中的<code>H2OFFT-Wx64.exe</code>文件，如果一切顺利，<code>New</code>下的<code>Version</code>将会显示<code>RMAMT4B0P0909</code>，并弹窗提示是否需要刷入。<br><img src="/post/downgrade-bios/6.png" srcset="/img/loading.gif" lazyload><br>点击确认即可，稍后系统会自动重启，随后来到BIOS升级页面<br><img src="/post/downgrade-bios/7.png" srcset="/img/loading.gif" lazyload>  </p>
+<blockquote>
+<p>进度条走完后会黑屏一到两分钟，此为正常现象</p>
+</blockquote>
+<p>刷写完毕后会再次重启，降级完成，可打开小米电脑管家进行确认，会提示BIOS需要升级。<br><img src="/post/downgrade-bios/8.png" srcset="/img/loading.gif" lazyload></p>
+<blockquote>
+<p>降级BIOS后可能会丢失Linux系统的UEFI启动条目，可自行使用相关工具（如DiskGenius）添加回来。</p>
+</blockquote>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>最终成功安装上了Fedora 42，美滋滋～🥰<br>顺带一提，我认为Fedora<a target="_blank" rel="noopener" href="https://fedoramagazine.org/anaconda-installer-redesign/">新版的Anaconda Installer</a>已经比Windows的安装器还要用户友好了，全程只有两步：选语言和划分区；而且，只要你预先留好一块空闲区域，安装器就能自动划好引导分区和btrfs subvolume，可以说连Linux小白都会安装了。</p>
+<h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>原帖中写的是升级，但在经过<a target="_blank" rel="noopener" href="https://4pda.to/forum/index.php?showtopic=1085675&st=2760#entry136058114">确认</a>后，实际上<code>RMAMT4B0P0A0A</code>是比<code>RMAMT4B0P0909</code>更新的
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/" class="category-chain-item">折腾记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/how-to/" class="print-no-link">#how-to</a>
+      
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>记一次降级笔记本BIOS固件的经历</div>
+      <div>https://blog.kenxu.top/post/downgrade-bios/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ken</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/bypass-gfw-p1/" title="聊聊那些翻山越岭的神奇操作（上）">
+                        <span class="hidden-mobile">聊聊那些翻山越岭的神奇操作（上）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://gcore.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://twikoo.kenxu.top/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       Made with ❤️ by Ken | Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> & <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
