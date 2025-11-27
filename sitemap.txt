@@ -1,3 +1,4 @@
+https://blog.kenxu.top/post/linux-server-optimize/
 https://blog.kenxu.top/post/bypass-gfw-p2/
 https://blog.kenxu.top/post/downgrade-bios/
 https://blog.kenxu.top/post/bypass-gfw-p1/
@@ -7,13 +8,13 @@ https://blog.kenxu.top/post/why-creating-my-own-blog/
 https://blog.kenxu.top/post/how-to-create-your-own-blog-p2-installation-and-configuration/
 https://blog.kenxu.top/post/how-to-create-your-own-blog-p1-preparation/
 https://blog.kenxu.top/
-https://blog.kenxu.top/tags/how-to/
-https://blog.kenxu.top/tags/homelab/
 https://blog.kenxu.top/tags/blog/
 https://blog.kenxu.top/tags/hexo/
+https://blog.kenxu.top/tags/how-to/
+https://blog.kenxu.top/tags/homelab/
+https://blog.kenxu.top/tags/linux/
 https://blog.kenxu.top/tags/thoughts/
 https://blog.kenxu.top/tags/network/
-https://blog.kenxu.top/tags/linux/
 https://blog.kenxu.top/categories/%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/
-https://blog.kenxu.top/categories/%E6%9D%82%E8%B0%88/
 https://blog.kenxu.top/categories/%E7%A0%94%E7%A9%B6%E5%88%86%E4%BA%AB/
+https://blog.kenxu.top/categories/%E6%9D%82%E8%B0%88/
