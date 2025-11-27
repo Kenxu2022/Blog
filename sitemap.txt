@@ -1,3 +1,4 @@
+https://blog.kenxu.top/about/index.html
 https://blog.kenxu.top/post/linux-server-optimization/
 https://blog.kenxu.top/post/bypass-gfw-p2/
 https://blog.kenxu.top/post/downgrade-bios/
