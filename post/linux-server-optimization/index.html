@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
   <link rel="icon" href="/img/favicon.ico">
   
-    <link rel="canonical" href="https://blog.kenxu.top/post/linux-server-optimize/"/>
+    <link rel="canonical" href="https://blog.kenxu.top/post/linux-server-optimization/"/>
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -24,17 +24,17 @@
     <meta name="description" content="从厂商买到一台VPS，或者给自己的Homelab装好系统之后，该怎么做才能既让系统更安全，使用起来又更顺手？这篇文章整理了一些我的实践经验。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一般Linux服务器部署及优化指北">
-<meta property="og:url" content="https://blog.kenxu.top/post/linux-server-optimize/index.html">
+<meta property="og:url" content="https://blog.kenxu.top/post/linux-server-optimization/index.html">
 <meta property="og:site_name" content="Ken&#39;s Blog">
 <meta property="og:description" content="从厂商买到一台VPS，或者给自己的Homelab装好系统之后，该怎么做才能既让系统更安全，使用起来又更顺手？这篇文章整理了一些我的实践经验。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.kenxu.top/img/%E4%B8%80%E8%88%ACLinux%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E5%8F%8A%E4%BC%98%E5%8C%96%E6%8C%87%E5%8C%97.png">
 <meta property="article:published_time" content="2025-11-27T17:20:00.000Z">
-<meta property="article:modified_time" content="2025-11-27T17:16:35.583Z">
+<meta property="article:modified_time" content="2025-11-27T17:25:55.126Z">
 <meta property="article:author" content="Ken">
+<meta property="article:tag" content="linux">
 <meta property="article:tag" content="how-to">
 <meta property="article:tag" content="homelab">
-<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://blog.kenxu.top/img/%E4%B8%80%E8%88%ACLinux%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E5%8F%8A%E4%BC%98%E5%8C%96%E6%8C%87%E5%8C%97.png">
 <meta name="twitter:creator" content="@kenxu2022">
@@ -312,12 +312,12 @@
 </blockquote>
 <h1 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h1><h2 id="Debian-Ubuntu-Other"><a href="#Debian-Ubuntu-Other" class="headerlink" title="Debian ? Ubuntu ? Other ?"></a>Debian ? Ubuntu ? Other ?</h2><p>完成付款&#x2F;组装之后，你大概率首先要从一大堆花花绿绿的Linux发行版中挑一个作为你的服务器系统。一般而言你有两类选择：Red Hat系和Debian系。其中Red Hat系包含了商业化版本RHEL和社区化版本CentOS，而Debian系则有Debian和基于Debian开发的Ubuntu。<br>先说Red Hat系，其中的CentOS在相当长的一段时间内曾经是十分热门的选择，因为其与商业化的上游发行版本RHEL完全兼容，并且由社区驱动，开源且免费，这意味着使用CentOS可以在不需要向Red Hat付费的情况下，享受到RHEL的稳定与丰富的软件包。正因如此，国内外部分大厂也一度采用CentOS。但是在2020年年末，Red Hat宣布对CentOS进行重大调整，其单方面终止了对CentOS的开发并转而支持定位为RHEL上游发行版的CentOS Stream。这样一来CentOS的所有优势都不复存在了，因此在CentOS 7在2024年终止支持后，曾经红极一时的CentOS逐渐式微。<br>由于迁移问题，如今依然有部分开发者和小厂在使用着CentOS，这当然是不推荐的，毕竟这款操作系统已经EOL，随时可能有安全漏洞。对于RHEL，虽然其推出了针对个人开发者非商业化使用的<a target="_blank" rel="noopener" href="https://developers.redhat.com/articles/faqs-no-cost-red-hat-enterprise-linux">免费许可证</a>，但我认为完全没有必要使用，毕竟接下来要介绍的Debian系在生态和稳定性上都与RHEL几乎无异，为什么大费周章地去注册并获取密钥呢。<br>说到Debian系，恐怕最出名的发行版就是Ubuntu了，笔者疫情期间首次尝试Linux的时候，安装的第一个发行版就是Ubuntu，也在自家的旧电脑上安装过Ubuntu Server作为Homelab。但我目前完全不推荐Ubuntu，原因很简单，面对巨大的使用量，Ubuntu背后的商业公司——Canonical，开始动起了歪心思，从Ubuntu 20.04开始，它们：  </p>
 <ul>
-<li>在SSH登录后打印的<code>motd</code>信息以及Debian系通用的包管理器<code>apt</code>中，加入了Ubuntu Pro的广告<br><img src="/post/linux-server-optimize/1.png" srcset="/img/loading.gif" lazyload alt="motd中的广告">  </li>
+<li>在SSH登录后打印的<code>motd</code>信息以及Debian系通用的包管理器<code>apt</code>中，加入了Ubuntu Pro的广告<br><img src="/post/linux-server-optimization/1.png" srcset="/img/loading.gif" lazyload alt="motd中的广告">  </li>
 <li>强行推广自行开发的软件包格式<code>snap</code>，与使用deb打包的软件不同，<code>snap</code>程序会将所需要的所有依赖打包在一起，这使得其体积巨大且启动速度极慢。并且在Ubuntu Desktop上，Canonical已经将部分软件从原先的deb格式换为了snap包。</li>
 <li>更让人难以接受的是，在倡导自由开放的Linux中，Canonical为用户卸载snap设置了重重阻碍。在通过<code>apt</code>卸载snap实用程序后，在不经过特别配置的情况下，使用<code>apt update</code>指令的时候会再次将<code>snap</code>安装回来。</li>
 </ul>
-<p>与Ubuntu正相反，其上游发行版——Debian的开发完全由社区驱动，系统镜像中没有商业化的部分，而且占用的资源更少，又兼具稳定性和生态丰富度。<br><img src="/post/linux-server-optimize/2.png" srcset="/img/loading.gif" lazyload alt="全新安装的Debian一般只会占用200MB左右内存"><br>总而言之，其简洁，快速，稳定的特性，使得我在包括Homelab在内的所有服务器上全部安装了Debian操作系统——当然，我也推荐你使用Debian，尤其是在你曾经使用过Ubuntu，对Debian系已经有一定了解的情况下，如果不是的话，就让Debian成为你第一个使用的Linux发行版吧！<br>本文也将使用最新的Debian 13系统作为示例，不过除了换源一节之外，其他的操作都是通用的，大可放心。</p>
-<h2 id="DD"><a href="#DD" class="headerlink" title="DD ?"></a>DD ?</h2><p>你可能会在各大论坛见过各式各样的“DD脚本”，这个名字来源于Linux系统自带的<code>dd</code>指令，其可以对文件进行读取，写入和转换等操作，由于Linux“一切皆文件”的设计理念，<code>dd</code>也可以对块设备进行操作，例如删除磁盘分区或是刷写镜像。而“DD脚本”做的事与重装类似，其会从官方镜像源下载对应的镜像，使用<code>dd</code>指令刷写磁盘，并配置用户名密码等信息。<br>许多优化系统的教程一上来就会推荐你去dd（也就是重装）一份“纯净”的系统，这样真的有必要吗？笔者认为，如果你购入的VPS本身未提供最新版本的Linux发行版镜像（例如Debian 13或Ubuntu 24.04），在安装完厂商提供的系统后，确实可以考虑使用这些脚本重装为最新版本的系统，以获取更新的软件包和更长时间的系统更新。但如果厂商已经提供了最新版本的系统镜像，再使用这些脚本重装系统就显得没有那么必要了。对于各大云厂商的机器，则<strong>完全不推荐使用这些脚本重装</strong>，因为大厂提供的镜像很可能会包含一些优化（例如会将镜像源替换为内网地址以加速访问并节省出入站流量），使用脚本重装可能会导致一些问题。即使在部分情况下确要重装系统，也建议通过厂商提供的控制台进行。<br><img src="/post/linux-server-optimize/3.png" srcset="/img/loading.gif" lazyload alt="Azure的Ubuntu镜像默认源地址为厂商内网地址"></p>
+<p>与Ubuntu正相反，其上游发行版——Debian的开发完全由社区驱动，系统镜像中没有商业化的部分，而且占用的资源更少，又兼具稳定性和生态丰富度。<br><img src="/post/linux-server-optimization/2.png" srcset="/img/loading.gif" lazyload alt="全新安装的Debian一般只会占用200MB左右内存"><br>总而言之，其简洁，快速，稳定的特性，使得我在包括Homelab在内的所有服务器上全部安装了Debian操作系统——当然，我也推荐你使用Debian，尤其是在你曾经使用过Ubuntu，对Debian系已经有一定了解的情况下，如果不是的话，就让Debian成为你第一个使用的Linux发行版吧！<br>本文也将使用最新的Debian 13系统作为示例，不过除了换源一节之外，其他的操作都是通用的，大可放心。</p>
+<h2 id="DD"><a href="#DD" class="headerlink" title="DD ?"></a>DD ?</h2><p>你可能会在各大论坛见过各式各样的“DD脚本”，这个名字来源于Linux系统自带的<code>dd</code>指令，其可以对文件进行读取，写入和转换等操作，由于Linux“一切皆文件”的设计理念，<code>dd</code>也可以对块设备进行操作，例如删除磁盘分区或是刷写镜像。而“DD脚本”做的事与重装类似，其会从官方镜像源下载对应的镜像，使用<code>dd</code>指令刷写磁盘，并配置用户名密码等信息。<br>许多优化系统的教程一上来就会推荐你去dd（也就是重装）一份“纯净”的系统，这样真的有必要吗？笔者认为，如果你购入的VPS本身未提供最新版本的Linux发行版镜像（例如Debian 13或Ubuntu 24.04），在安装完厂商提供的系统后，确实可以考虑使用这些脚本重装为最新版本的系统，以获取更新的软件包和更长时间的系统更新。但如果厂商已经提供了最新版本的系统镜像，再使用这些脚本重装系统就显得没有那么必要了。对于各大云厂商的机器，则<strong>完全不推荐使用这些脚本重装</strong>，因为大厂提供的镜像很可能会包含一些优化（例如会将镜像源替换为内网地址以加速访问并节省出入站流量），使用脚本重装可能会导致一些问题。即使在部分情况下确要重装系统，也建议通过厂商提供的控制台进行。<br><img src="/post/linux-server-optimization/3.png" srcset="/img/loading.gif" lazyload alt="Azure的Ubuntu镜像默认源地址为厂商内网地址"></p>
 <h1 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h1><p>无论是<code>apt</code>，<code>dnf</code>，还是<code>pip</code>，<code>npm</code>，在中国大陆使用任何包管理器，除非你能容忍&lt;100kbps的下载速度以及时不时的阻断，首先应该考虑的一件事就是——换源。如果你的VPS来自于各大云厂商或位于境外，那你可以跳过这一步。此外，如果你的VPS来自于云厂商，那你大概率也可以跳过这一步，原因如上所述，厂商应该已经帮你换好源了。<br>对于Debian系的系统，长久以来，系统软件源的配置文件位于<code>/etc/apt/sources.list</code>中，但自从Debian 11开始，Debian官方引入了一种更易读的格式：DEB 822，这种格式在Debian 13中成为了推荐格式，官方亦表示原先的<code>sources.list</code>格式将会在将来的版本中废弃，所以建议在换源的时候使用DEB 822格式。<br>关于镜像源的选择，最有名的应该就是<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/">清华大学TUNA协会提供的镜像</a>了，无论是服务质量还是源的丰富度上TUNA镜像都是遥遥领先，不过可能是用的人太多的原因，TUNA的镜像时常不能跑满笔者家中的带宽。其实镜像源的选择还有很多，例如我同样比较喜欢的<a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/">中科大镜像</a>。对于南方的朋友，我更推荐<a target="_blank" rel="noopener" href="https://mirrors.sustech.edu.cn/">南方科技大学镜像站</a>，虽然源的数量较少，但延迟更低，速度更快。<br>选好了镜像源，接下来就是写入文件了，根据最新的DEB 822格式规范，系统软件源的配置应该位于<code>/etc/apt/sources.list.d/debian.sources</code>，以南科大的镜像源为例，用你喜欢的文本编辑器打开这个文件，向其中写入以下内容：  </p>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">Types: deb<br>URIs: https://mirrors.sustech.edu.cn/debian/<br>Suites: trixie trixie-updates<br>Components: main contrib non-free non-free-firmware<br>Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg<br><br>Types: deb<br>URIs: https://mirrors.sustech.edu.cn/debian-security/<br>Suites: trixie-security<br>Components: main contrib non-free non-free-firmware<br>Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg<br></code></pre></td></tr></table></figure>
 <div class="note note-info">
@@ -329,7 +329,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> adduser <span class="hljs-variable">$USERNAME</span><br></code></pre></td></tr></table></figure>
 <p>会提示输入密码和其他信息，除密码外其他信息回车跳过即可<br>之后需要将用户加入sudo组以使用sudo进行提权  </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> adduser <span class="hljs-variable">$USERNAME</span> <span class="hljs-built_in">sudo</span><br></code></pre></td></tr></table></figure>
-<p><img src="/post/linux-server-optimize/5.png" srcset="/img/loading.gif" lazyload>  </p>
+<p><img src="/post/linux-server-optimization/5.png" srcset="/img/loading.gif" lazyload>  </p>
 <div class="note note-info">
             <p><code>adduser</code>指令是对系统自带指令<code>useradd</code>和<code>usermod</code>的包装，相较后者更加友好，其等效于这两条指令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> useradd -m -G <span class="hljs-built_in">sudo</span> -s /bin/bash <span class="hljs-variable">$USERNAME</span><br><span class="hljs-built_in">sudo</span> passwd <span class="hljs-variable">$USERNAME</span><br></code></pre></td></tr></table></figure>
           </div>
@@ -368,7 +368,7 @@
           </div>  
 
 
-<h2 id="Fail2ban"><a href="#Fail2ban" class="headerlink" title="Fail2ban ?"></a>Fail2ban ?</h2><p>相当一部分教程还会推荐安装Fail2ban这个软件包用于防止对SSH服务进行暴力破解，有必要吗？<br>首先要说明Fail2ban的原理：作为一款第三方软件，Fail2ban其实是靠读取日志实现其功能的。以SSH为例，Fail2ban会读取SSH日志中有关登录失败的条目，并封禁其中记录的IP地址<br>对应到SSH服务端这一防护场景，考虑到我们在之前已经启用了密钥认证并完全关闭了密码认证，这意味着攻击者无论如何尝试都不可能暴力破解。虽然我们依然会在SSH的日志当中看到源源不断的认证失败记录，但不会对我们造成任何影响。<br><img src="/post/linux-server-optimize/7.png" srcset="/img/loading.gif" lazyload alt="大部分自动化扫描脚本只会尝试常见的用户名+已有泄漏记录的密码，因此它们可能连用户名都猜不对就被断开连接了"><br>所以，在启用密钥对认证的情况下，<strong>完全没必要针对SSH配置Fail2ban</strong><br>但这并不意味着Fail2ban就一无是处了，如果你的主机上配置了其他服务，例如Postfix, Dovecot等通过用户名+密码认证的服务，Fail2ban还是能有效识别并封禁暴力破解的尝试的（在<a target="_blank" rel="noopener" href="https://github.com/fail2ban/fail2ban/wiki/Best-practice">正确配置日志</a>的情况下），并且除了<a target="_blank" rel="noopener" href="https://github.com/fail2ban/fail2ban/tree/master/config/filter.d">内置的一系列服务</a>，你还可以通过手写正则表达式为自己的服务创建封禁规则。所以，是否安装Fail2ban还是要看具体的情况。</p>
+<h2 id="Fail2ban"><a href="#Fail2ban" class="headerlink" title="Fail2ban ?"></a>Fail2ban ?</h2><p>相当一部分教程还会推荐安装Fail2ban这个软件包用于防止对SSH服务进行暴力破解，有必要吗？<br>首先要说明Fail2ban的原理：作为一款第三方软件，Fail2ban其实是靠读取日志实现其功能的。以SSH为例，Fail2ban会读取SSH日志中有关登录失败的条目，并封禁其中记录的IP地址<br>对应到SSH服务端这一防护场景，考虑到我们在之前已经启用了密钥认证并完全关闭了密码认证，这意味着攻击者无论如何尝试都不可能暴力破解。虽然我们依然会在SSH的日志当中看到源源不断的认证失败记录，但不会对我们造成任何影响。<br><img src="/post/linux-server-optimization/7.png" srcset="/img/loading.gif" lazyload alt="大部分自动化扫描脚本只会尝试常见的用户名+已有泄漏记录的密码，因此它们可能连用户名都猜不对就被断开连接了"><br>所以，在启用密钥对认证的情况下，<strong>完全没必要针对SSH配置Fail2ban</strong><br>但这并不意味着Fail2ban就一无是处了，如果你的主机上配置了其他服务，例如Postfix, Dovecot等通过用户名+密码认证的服务，Fail2ban还是能有效识别并封禁暴力破解的尝试的（在<a target="_blank" rel="noopener" href="https://github.com/fail2ban/fail2ban/wiki/Best-practice">正确配置日志</a>的情况下），并且除了<a target="_blank" rel="noopener" href="https://github.com/fail2ban/fail2ban/tree/master/config/filter.d">内置的一系列服务</a>，你还可以通过手写正则表达式为自己的服务创建封禁规则。所以，是否安装Fail2ban还是要看具体的情况。</p>
 <h1 id="网速优化"><a href="#网速优化" class="headerlink" title="网速优化"></a>网速优化</h1><h2 id="BBR"><a href="#BBR" class="headerlink" title="BBR"></a>BBR</h2><p>由Google开发的，赫赫有名的拥塞控制算法，相较Linux内核默认的算法<code>CUBIC</code>，可以提供更加优秀的带宽与延迟。<br>调整这个值需要使用系统自带的程序<code>sysctl</code>，以往的做法是：将需要调整的值写入<code>/etc/sysctl.conf</code>，再使用<code>sysctl -p</code>加载配置文件。<br>但是，自从Debian 13开始，<code>sysctl</code><a target="_blank" rel="noopener" href="https://www.debian.org/releases/trixie/release-notes/issues.html#etc-sysctl-conf-is-no-longer-honored">不再读取这个文件了</a>，其默认配置文件放在<code>/usr/lib/sysctl.d/50-default.conf</code>，我们不需要动这个文件，根据<code>sysctl</code>的man page，其还会从以下这几个地方读取配置：  </p>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">/etc/sysctl.d/*.conf<br>/run/sysctl.d/*.conf<br>/usr/local/lib/sysctl.d/*.conf<br>/usr/lib/sysctl.d/*.conf<br>/lib/sysctl.d/*.conf<br></code></pre></td></tr></table></figure>
 <p><code>sysctl</code>会从所有这些目录中收集配置文件，然后对它们按文件名进行统一的字典序排序，再依次加载其中的设置。若出现同名文件，则使用目录优先级更高的文件替代优先级低的文件。<strong>如果同一个参数被多次设置，则后加载的值会覆盖前面的值</strong>。也就是说，与SSH服务端的配置相反，我们应该将配置文件放在<code>/etc/sysctl.d</code>中，并以<code>99</code>开头命名配置文件，这样才能让我们的配置拥有最高优先级。（Linux，很神奇吧~）<br>具体到落实上，在终端输入以下指令：  </p>
@@ -379,7 +379,7 @@
 <p>这行配置用于设置默认的队列调度算法，默认值为<code>fq_codel</code>，究竟有没有必要将这个值改为<code>fq</code>呢？<br>通过查阅2017年<a target="_blank" rel="noopener" href="https://groups.google.com/g/bbr-dev/c/4jL4ropdOV8">BBR开发者的讨论</a>可以得知，BBR算法需要搭配<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/TCP_pacing">TCP Pacing</a>使用，否则可能会将“超过算法期望值”的包发送至互联网中，而<code>fq_codel</code>这一队列调度算法并没有实现TCP Pacing，所以在当时，BBR需要搭配<code>fq</code>这一算法使用。<br>但是！自从Linux内核版本4.13开始，内核的TCP栈增加了Pacing功能，作为在队列调度算法没有实现这项功能时的fallback，也就是说，自这个版本开始，BBR+<code>fq_codel</code>也能很好地工作，考虑到<code>fq_codel</code>相比<code>fq</code>额外增加的受控延迟算法，保持默认值就已经很好了。<br>总结一下，BBR+<code>fq</code>纯属历史遗留问题，<code>net.core.default_qdisc</code>的值<strong>无需额外设置</strong></p>
 <h1 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h1><p>Ubuntu相对Debian一个“易用”的方面在于，其镜像中预配置了一些环境变量，使得在日常使用中更加得心应手。其实，我们也可以在Debian中自行设置这些环境变量（有些甚至已经在<code>~/.bashrc</code>中，只是默认被注释了）<br>打开<code>~/.bashrc</code>，加入以下行：  </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">alias</span> ll=<span class="hljs-string">&#x27;ls -l&#x27;</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:/sbin<br></code></pre></td></tr></table></figure>
-<p>其中<code>ll</code>可以列出目录内的文件及详细信息，在快速查看目录的时候非常有用，而第二行的意思是：将<code>/sbin</code>添加到当前用户的<code>PATH</code>环境变量中。这是Debian独有的问题：系统默认不会在普通用户的<code>PATH</code>环境变量中添加这一目录，导致普通用户无法使用安装在<code>/sbin</code>下的软件（例如<code>ifconfig</code>，无需<code>root</code>权限也可以查看网卡信息）<br><img src="/post/linux-server-optimize/6.png" srcset="/img/loading.gif" lazyload alt="Debian默认的.profile文件，不对uid != 0的用户（也就是非root用户）在PATH中添加/sbin"><br>设置完成后登出再登录即可生效。<br>笔者的习惯是只添加这两个，你可以自行添加你喜欢的环境变量，也可以看看<code>.bashrc</code>中还有哪些被注释掉的环境变量。</p>
+<p>其中<code>ll</code>可以列出目录内的文件及详细信息，在快速查看目录的时候非常有用，而第二行的意思是：将<code>/sbin</code>添加到当前用户的<code>PATH</code>环境变量中。这是Debian独有的问题：系统默认不会在普通用户的<code>PATH</code>环境变量中添加这一目录，导致普通用户无法使用安装在<code>/sbin</code>下的软件（例如<code>ifconfig</code>，无需<code>root</code>权限也可以查看网卡信息）<br><img src="/post/linux-server-optimization/6.png" srcset="/img/loading.gif" lazyload alt="Debian默认的.profile文件，不对uid != 0的用户（也就是非root用户）在PATH中添加/sbin"><br>设置完成后登出再登录即可生效。<br>笔者的习惯是只添加这两个，你可以自行添加你喜欢的环境变量，也可以看看<code>.bashrc</code>中还有哪些被注释掉的环境变量。</p>
 <h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><p>最后，根据我的使用经验，推荐一些实用的软件，前三个可以直接从软件源获取，剩下的已给出对应的Github仓库链接：  </p>
 <p><strong>htop</strong><br>TUI版的任务管理器，可展示CPU&#x2F;内存&#x2F;磁盘&#x2F;进程等信息，相比自带的<code>top</code>指令更加美观易读，支持直接通过鼠标操作。</p>
 <p><strong>vnstat</strong><br>流量统计工具，可统计入站&#x2F;出站流量，并以分钟-年度的粒度展示数据，还可以通过<code>vnstat -l</code>展示实时流量数据。</p>
@@ -427,11 +427,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
+      
         <a href="/tags/how-to/" class="print-no-link">#how-to</a>
       
         <a href="/tags/homelab/" class="print-no-link">#homelab</a>
-      
-        <a href="/tags/linux/" class="print-no-link">#linux</a>
       
     </div>
   
@@ -444,7 +444,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>一般Linux服务器部署及优化指北</div>
-      <div>https://blog.kenxu.top/post/linux-server-optimize/</div>
+      <div>https://blog.kenxu.top/post/linux-server-optimization/</div>
     </div>
     <div class="license-meta">
       
